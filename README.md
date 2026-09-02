@@ -8,9 +8,9 @@ Before you start developing, make sure you have access to an Eclipsed Engine ins
 ### 1. Configure the plugin
 Run the `setup.bat` file.
 The setup script will ask you for the following:
-* **Engine path** — The location of your Eclipsed Engine installation.
-* **Plugin name** — The name of your plugin.
-* **API key name** — The API key that should be used by the plugin.
+* **Engine path** - The location of your Eclipsed Engine installation.
+* **Plugin name** - The name of your plugin.
+* **API key name** - The API key that should be used by the plugin.
 The setup script will configure the project based on the values you provide.
 
 ### 2. Generate the plugin

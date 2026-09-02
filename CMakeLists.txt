@@ -2,9 +2,11 @@ cmake_minimum_required(VERSION "4.0.0")
 
 include(Tools/options.cmake)
 
+if("${PLUGIN_NAME}" STREQUAL "")
+    get_filename_component(FOLDER_NAME "${CMAKE_CURRENT_SOURCE_DIR}" PLUGIN_NAME)
+endif()
+
 project(${PLUGIN_NAME} LANGUAGES CXX C)
-
-
 
 set(ROOT "${CMAKE_CURRENT_SOURCE_DIR}/Plugin")
 file(GLOB_RECURSE SOURCE

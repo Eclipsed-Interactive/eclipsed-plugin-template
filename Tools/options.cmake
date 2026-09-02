@@ -7,10 +7,12 @@ set(CMAKE_UNITY_BUILD ON)
 
 set(HIDE_CMAKELISTS ON)
 
-set(ENGINE_PATH "" CACHE PATH "Path to the engine")
-set(PLUGIN_NAME "" CACHE STRING "Plugin name")
-set(PLUGIN_LIBRARY_TYPE "" CACHE STRING "Plugin library type")
-set(PLUGIN_API_KEY "" CACHE STRING "Plugin api key name")
+get_filename_component(FOLDER_NAME "${CMAKE_CURRENT_SOURCE_DIR}" NAME)
+
+set(ENGINE_PATH "${CMAKE_SOURCE_DIR}" CACHE PATH "Path to the engine")
+set(PLUGIN_NAME "${FOLDER_NAME}" CACHE STRING "Plugin name")
+set(PLUGIN_LIBRARY_TYPE "SHARED" CACHE STRING "Plugin library type")
+set(PLUGIN_API_KEY "${FOLDER_NAME}" CACHE STRING "Plugin api key name")
 
 set_property(GLOBAL PROPERTY 
     USE_FOLDERS ON

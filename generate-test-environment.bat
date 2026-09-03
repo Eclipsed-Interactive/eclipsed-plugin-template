@@ -2,9 +2,11 @@
 
 setlocal
 
-call Tools/common.bat :GetEnginePath
+call Tools/common.bat :GetEnginePathFromFile
 call Tools/common.bat :GetPluginName
 call Tools/common.bat :GetApiKey
+
+set "OUTPUT_PATH="Bin"
 
 if "%~1"=="" (
     set "LIBRARY_TYPE=SHARED"
@@ -19,6 +21,9 @@ cmake -G "Visual Studio 18 2026"    ^
     -DENGINE_PATH="%ENGINE_PATH%"   ^
     -DPLUGIN_NAME="%PLUGIN_NAME%"   ^
     -DPLUGIN_LIBRARY_TYPE="%LIBRARY_TYPE%"  ^
+    -DENGINE_OUTPUT_PATH="%OUTPUT_PATH%"  ^
     -DPLUGIN_API_KEY="%API_KEY%"
 
 endlocal
+
+pause

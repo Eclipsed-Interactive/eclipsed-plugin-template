@@ -3,7 +3,7 @@ cmake_minimum_required(VERSION "4.0.0")
 include(Tools/options.cmake)
 
 if("${PLUGIN_NAME}" STREQUAL "")
-    get_filename_component(FOLDER_NAME "${CMAKE_CURRENT_SOURCE_DIR}" PLUGIN_NAME)
+    get_filename_component(PLUGIN_NAME "${CMAKE_CURRENT_SOURCE_DIR}" NAME)
 endif()
 
 project(${PLUGIN_NAME} LANGUAGES CXX C)
@@ -20,6 +20,12 @@ file(GLOB_RECURSE SOURCE
 
 add_library(${PLUGIN_NAME} ${PLUGIN_LIBRARY_TYPE})
 
+set_target_properties(${PLUGIN_NAME} PROPERTIES
+    RUNTIME_OUTPUT_DIRECTORY "${ENGINE_OUTPUT_PATH}"
+    RUNTIME_OUTPUT_DIRECTORY_DEBUG "${ENGINE_OUTPUT_PATH}"
+    RUNTIME_OUTPUT_DIRECTORY_RELEASE "${ENGINE_OUTPUT_PATH}"
+)
+
 target_compile_definitions(${PLUGIN_NAME}
     PRIVATE
         ${PLUGIN_API_KEY}_EXPORTS
@@ -32,7 +38,11 @@ if("${PLUGIN_LIBRARY_TYPE}" STREQUAL "SHARED")
     )
 endif()
 
-target_include_directories(${PLUGIN_NAME} PUBLIC ${ENGINE_PATH})
+target_include_directories(${PLUGIN_NAME} 
+    PUBLIC 
+        ${ENGINE_PATH}
+        ${CMAKE_CURRENT_SOURCE_DIR}/Plugin
+    )
 
 set_target_properties(${PLUGIN_NAME} PROPERTIES
     RUNTIME_OUTPUT_DIRECTORY "${CMAKE_CURRENT_SOURCE_DIR}/Bin"
@@ -52,4 +62,3 @@ endif()
 include(Plugin/Plugin.cmake)
 
 
-target_link_libraries(${PLUGIN_NAME} PUBLIC Generated)

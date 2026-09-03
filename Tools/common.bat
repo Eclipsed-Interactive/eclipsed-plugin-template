@@ -3,11 +3,28 @@
 if /i "%~1"==":GetEnginePath" goto GetEnginePath
 if /i "%~1"==":GetPluginName" goto GetPluginName
 if /i "%~1"==":GetApiKey" goto GetApiKey
+if /i "%~1"==":GetEngineOutputPath" goto GetEngineOutputPath
+if /i "%~1"==":GetEnginePathFromFile" goto GetEnginePathFromFile
 
 exit /b 1
 
 
 :GetEnginePath
+
+set "ENGINE_PATH=%ecl_path%"
+
+exit /b 0
+
+
+
+:GetEngineOutputPath
+
+set "ENGINE_OUTPUT_PATH=%ecl_output_path%"
+
+exit /b 0
+
+
+:GetEnginePathFromFile
 
 set "CONFIG=%~dp0..\.plugin"
 
@@ -16,7 +33,6 @@ for /f "usebackq tokens=1,* delims==" %%A in ("%CONFIG%") do (
 )
 
 exit /b 0
-
 
 :GetPluginName
 

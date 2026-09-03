@@ -13,8 +13,8 @@ set(ENGINE_PATH "${CMAKE_SOURCE_DIR}" CACHE PATH "Path to the engine")
 set(PLUGIN_NAME "${FOLDER_NAME}" CACHE STRING "Plugin name")
 set(PLUGIN_LIBRARY_TYPE "SHARED" CACHE STRING "Plugin library type")
 set(PLUGIN_API_KEY "${FOLDER_NAME}" CACHE STRING "Plugin api key name")
+set(ENGINE_OUTPUT_PATH "${CMAKE_CURRENT_SOURCE_DIR}/Bin" CACHE STRING "Output path")
 
 set_property(GLOBAL PROPERTY 
     USE_FOLDERS ON
-    
 )

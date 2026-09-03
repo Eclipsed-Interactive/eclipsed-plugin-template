@@ -1,5 +1,17 @@
 include_guard(GLOBAL)
 
+file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/Generated/Plugin.Core.hpp"
+    "#pragma once\n"
+    "\n"
+    "#if defined(${PLUGIN_API_KEY}_EXPORTS) && defined(IS_SHARED)\n"
+    "#define DLL __declspec(dllexport)\n"
+    "#elif defined(IS_SHARED)\n"
+    "#define DLL __declspec(dllimport)\n"
+    "#else\n"
+    "#define DLL ${PLUGIN_API_KEY}\n"
+    "#endif"
+)
+
 if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
 
     file(GLOB_RECURSE ASSETS
@@ -16,24 +28,6 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
             FILES ${ASSETS}
         )
     endif()
-
-
-
-
-
-
-
-    file(WRITE "${CMAKE_CURRENT_SOURCE_DIR}/Generated/Plugin.Core.hpp"
-        "#pragma once\n"
-        "\n"
-        "#if defined(${PLUGIN_API_KEY}_EXPORTS) && defined(IS_SHARED)\n"
-        "#define DLL __declspec(dllexport)\n"
-        "#elif defined(IS_SHARED)\n"
-        "#define DLL __declspec(dllimport)\n"
-        "#else\n"
-        "#define DLL ${PLUGIN_API_KEY}\n"
-        "#endif"
-    )
 
     set(GEN_ROOT "${CMAKE_CURRENT_SOURCE_DIR}/Generated")
     file(GLOB_RECURSE GEN_SOURCE
@@ -59,4 +53,9 @@ if(CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
             TREE "${GEN_ROOT}"
             FILES ${GEN_SOURCE}
         )
+
+    target_link_libraries(${PLUGIN_NAME} PUBLIC Generated)
+else()
+    target_include_directories(${PLUGIN_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/Generated")
+    target_sources(${PLUGIN_NAME} PUBLIC "${CMAKE_CURRENT_SOURCE_DIR}/Generated/Plugin.Core.hpp")
 endif()
